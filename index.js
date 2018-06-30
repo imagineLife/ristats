@@ -336,7 +336,7 @@ let resizedHeight = legendDiv.clientHeight;
 
 // asynchronous tasks, load topojson maps and data
 d3.queue()
-  .defer(d3.json, "riTowns.json")
+  .defer(d3.json, "ritowns.json")
   .defer(d3.csv, "data.csv", function(d) {
     if (isNaN(d.belowPoverty)) {
         d3PovertyObj.set(d.id, 0); 
