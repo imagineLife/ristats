@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>    
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="./normalizeReset.css">
+    <link rel="stylesheet" type="text/css" href="./dark.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>RI Town-By-Town Poverty</title>
+  </head>
+  <body onload="resizeCharts()">
+
+    <div id="parentWrapper">
+      
+      <div class="visualSection">
+        
+        <div class="visualHeader">
+          <h1>Rhode Islands's Estimated Poverty</h1>
+          <small><i>As Of 2016</i></small>
+        </div>
+        
+        <div class="imagesWrapper">
+          
+          <div class="group stateWrapper">
+            <h2 class="littleHeader">Poverty By The Numbers</h2>
+            <div id="totalDivWrapper"></div>
+          </div>
+          
+          <div class="group legendWrapper">
+            <h2 class="littleHeader">Scale</h2>
+            <div id="legendContainer"></div>
+          </div>
+        
+        </div>
+        
+        <div class="textSection">
+          <h2>Notes on the Chart</h2>
+          <p>TLDR: Darker = more poverty</p>
+          <p>This state representation colors each town, where the darker the color, the higher the numerical value is represented, showing the total number of people living below the poverty line in each town. The legend gives a rough reference for how dark & bright each shade of red is, where the lightest color represents well under 10,000 people and the darkest color represents over 40,000 people.</p>
+        </div>
+
+      </div>
+
+      <div class="textSection">
+        <h2>The Numbers At A Glance</h2>
+       
+        <div class="meaningText">          
+          <h3>The Range of Poverty</h3>
+          <p>The town with the <span class="incomeRange">least</span> people below the poverty line is North Shoreham, with <span class="incomeRange">71</span> people. <br>
+          The town with the <span class="incomeRange">most</span> people spanelow the poverty line is Providence, with <span class="incomeRange">46,678</span> people.</p>
+          <div id="rangeBar"></div>
+        </div>
+
+        <div class="meaningText">          
+          <h3>Towns with Highest Poverty Populations</h3>
+          <p>Providence has significantly more people below the poverty line than the rest of Rhode Island. Pawtucket is the closest with just over 14,000.</p>
+          <div id="top5Bar"></div>
+        </div>
+
+      </div>
+
+      <p class="comparisonP">Noticing total counts of people below the poverty line seems like an incomplete understanding of poverty in Rhode Island town-by-town. Another view into the data is considering poverty-by-population: understanding the <i>percentage of the population</i> in each town that lives below the poverty line. Below are some charts revealing this view into the data.</p>
+
+      <div class="visualSection">
+        
+        <div class="visualHeader">
+          <h1>Poverty By  Percentage</h1>
+        </div>
+        
+        <div class="imagesWrapper">
+          
+          <div class="group stateWrapper">
+            <h2 class="littleHeader">Percentage of Poverty</h2>
+            <div id="percentDivWrapper"></div>
+          </div>
+          
+          <div class="group legendWrapper">
+            <h2 class="littleHeader">Scale</h2>
+            <div id="percentLegendContainer"></div>
+          </div>
+
+          <div class="textSection">
+            <h2>Notes on the Chart</h2>
+            <p>TLDR: Darker = more poverty, measured by population percentage(%)</p>
+            <p>This state representation colors each town, where the darker the color, the higher the percentage of the town population lives below the poverty line. The legend gives a rough reference for the meaning of the shades of blue, where the lightest color represents under 5% of the town populaton and the darkest shade represents over 30% of the town population.</p>
+          </div> 
+
+          <div class="meaningText">          
+            <h3>5 Highest-Poverty Towns by Population Percentage</h3>
+            <div id="piesWrapper"></div>
+          </div>
+
+        </div>
+            
+      </div>
+       
+
+   
+    </div>
+
+    <footer>
+        
+        <p>Source Notes:<br>
+          <b>Income & Poverty data</b> from the 2016 cencus:<a href="https://factfinder.census.gov/">2016 Cencus</a>.</a><br>
+          <b>Data Visual Representation</b> with the help of <a href="https://d3js.org/">D3</a>.<br>
+          <b>Colors</b> are from <a href="http://www.ColorBrewer.org">www.ColorBrewer.org by Cynthia A. Brewer, Geography, Pennsylvania State University.</a>.
+        </p>
+
+
+    </footer>
+
+    <script src="index.js" defer></script>
+    <script src="pie.js" defer></script>    
+
+  </body>
+</html>

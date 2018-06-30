@@ -1,0 +1,257 @@
+*{
+  box-sizing: border-box;
+  color: white;
+}
+
+body{
+  margin: 5px 20px;
+  font-size: 20px;
+}
+
+h1, h2{
+  font-weight: 800;
+}
+
+h2, h3{
+  text-align: left;
+  margin-bottom: 1.5em;
+}
+
+h1{
+  font-size: 2.2em;
+  text-align: center;
+}
+
+h2{
+  font-size:1.4em;
+  margin: 10px auto;
+}
+
+.legendSVG line{
+  stroke:none;
+}
+
+.textSection{
+  margin-top: 20px;
+}
+
+.textSection h2{
+  display: inline-block;
+  border-bottom: 10px solid #2ecc71;
+}
+
+h3{
+  display: inline-block;
+  font-size:1.2em;
+  border-bottom: 6px solid #2ecc71;
+  margin-top: 10px;
+}
+
+.incomeRange{
+  font-size: 1.5em;
+}
+
+small{
+  font-size: 1em;
+  text-align: center;
+  display: block;
+}
+
+i{
+  font-style: italic;
+}
+
+
+p{
+  line-height: 1.6em;
+  margin: 10px 0 20px 0;
+}
+
+.comparisonP{
+  margin: 0 30px;
+}
+
+#parentWrapper{
+  overflow: hidden;
+  position: relative;
+}
+
+.visualHeader{
+  padding: 50px 0;
+}
+
+.visualSection{
+  margin-bottom: 50px;
+}
+
+#stateImage, #legendContainer, #percentLegendContainer{
+  display: block;
+  min-height:260px;
+}
+
+.tick text, .legendCells text{
+  font-size: 16px;
+}
+
+.imagesWrapper{
+  /*text-align: center;*/
+  overflow: hidden;
+  position: relative;
+}
+
+.group{
+  display: inline-block;
+  top: 0;
+}
+
+.group h2{
+  text-align: center;
+  margin: 10px 0;
+}
+
+.stateWrapper{
+  width: 75%;
+}
+
+.legendWrapper{
+  position: relative;
+  width:23%;
+  vertical-align: top;
+}
+
+.povertyRange{
+  display: inline;
+  font-size: 1.7em;
+}
+
+#rangeBar{
+  min-height: 450px;
+  margin-top: 15px;
+}
+
+.importantText{
+  font-size: 2em;
+}
+
+.meaningText{
+  display:block;
+}
+
+.minWrapper > h3, .maxWrapper > h3 {
+  margin: 5px 0;
+} 
+
+.minMaxHeader{
+  display: block;
+  width: fit-content;
+}
+
+.minMaxWrapper{
+  margin: 50px 0;
+}
+
+.minWrapper, .maxWrapper{
+  padding: 25px 0;
+}
+
+.top5barText, .totalBarText {
+  text-anchor: start;
+  visibility: hidden;
+}
+
+footer{
+  background-color: rgba(0,0,0,.4);
+  position: absolute;
+  right: 0;
+  left: 0;
+  padding: 0 10px;
+}
+
+footer p{
+  font-size: 12px;
+  bottom: 0;
+}
+
+.povertyTotalSVG, .percentBelowSVG{
+  max-height: 640px;
+}
+
+#piesWrapper{
+  text-align: center;
+}
+
+.chartAndText{
+  width: 100%;
+  display: block;
+  margin-bottom: 10%
+}
+
+.pieDiv{
+  line-height: 0;
+  text-align: center;
+}
+
+.pieTitle{
+  font-size: 1.2em;
+  text-align: center; 
+  vertical-align: top;  
+}
+
+.pieWords{
+  display: inline-block;
+  width: 45%;
+  vertical-align: top;  
+  margin-top: 10%;
+}
+
+.pieP{
+  font-size: 50px;
+  text-align: center;
+  line-height: 1em;
+}
+
+.halfSize{
+  width: 50%;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  margin: 0 auto;
+}
+
+.wordsWrapper{
+  margin-top: 10%;
+}
+
+@media only screen and (min-width: 400px){
+  .wordsWrapper{
+    margin-top: 7%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .top5barText, .totalBarText {
+    visibility: unset;
+  }
+}
+
+@media only screen and (min-width : 768px){
+  .chartAndText{
+    width: 49%;
+    display: inline-block;
+  }
+
+  .minWrapper, .maxWrapper{
+    width: 50%;
+    display: inline-block;
+    padding: 0 25px;
+  }
+
+  .minWrapper > p, .maxWrapper > p{
+    display: inline;
+  }
+
+  .maxWrapper{
+    float: right;
+  }
+
+}
