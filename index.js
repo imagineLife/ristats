@@ -494,15 +494,13 @@ function ready(error, data) {
     let stateTowns = BelowPovertyG.selectAll(".towns");
     let povertyTowns = percentBelowG.selectAll(".towns");
 
-    setTimeout(() => {
-      //build the towns & color them
-      buildAndColorTowns(stateTowns, rhodeIsland, geoPath, d3PovertyObj, belowPovertyColorScale, 'svg.povertyTotalSVG');
-      buildAndColorTowns(povertyTowns, rhodeIsland, geoPath, d3PercentObj, percentColorScale, 'svg.percentBelowSVG');
+    //build the towns & color them
+    buildAndColorTowns(stateTowns, rhodeIsland, geoPath, d3PovertyObj, belowPovertyColorScale, 'svg.povertyTotalSVG');
+    buildAndColorTowns(povertyTowns, rhodeIsland, geoPath, d3PercentObj, percentColorScale, 'svg.percentBelowSVG');
 
-      //builds state-legends
-      buildStateLegend(legendDiv, belowPovertyColorScale, povertyExtent, 'povertyCanvasClass', totalsLegendSVG, 'totalLegendAxis', 'povertyLegendSVG', format);
-      buildStateLegend(percentLegendDiv, percentColorScale, percentExtent ,'percentCanvasClass', percentLegendSVG, 'PercentLegendAxis', 'percentLegendSVG', formatPercent);
-    }, 50)
+    //builds state-legends
+    buildStateLegend(legendDiv, belowPovertyColorScale, povertyExtent, 'povertyCanvasClass', totalsLegendSVG, 'totalLegendAxis', 'povertyLegendSVG', format);
+    buildStateLegend(percentLegendDiv, percentColorScale, percentExtent ,'percentCanvasClass', percentLegendSVG, 'PercentLegendAxis', 'percentLegendSVG', formatPercent);
 }
 
 function resizeCharts() {

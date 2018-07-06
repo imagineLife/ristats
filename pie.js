@@ -204,7 +204,7 @@ originalDataObj.forEach((d, i) => {
 	    percentBelow: d.percentBelow,
 	    chartNo: i + 1      
 	  }];
-	  setTimeout(() => buildChart(chartVars, thisObj, i), 60)
+	  setTimeout(() => buildChart(chartVars, thisObj, i), 10)
 	}
 })
 
