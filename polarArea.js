@@ -47,6 +47,39 @@ function getLargestRadius(w,h, largestVal){
 	return (largestRadiusCalculation < largestVal)? largestRadiusCalculation : largestVal; 
 }
 
+let addComma = d3.format(',');
+
+function getValsFromWedgeData(d){
+	let raceName = d.race;
+	let raceVal = addComma(d.howMany);
+	return { raceName, raceVal }
+}
+
+function updatePolarAreaDetails(d){
+	//1. Extract Town & Vals into vars, make a extract fn
+	let {raceName, raceVal } = getValsFromWedgeData(d.data);
+
+	//select page elements
+   	let polarDetails = d3.select('#polarDetails')
+	let polarAreaPrompt= d3.select('#polarAreaPrompt');
+
+	//append these vals to the 'polarDetails' section of the page
+   	polarDetails.style('display', 'block');
+   	polarDetails.html('');
+	polarDetails.append('text').attr('class', 'detail').text(`${raceName}`);
+	polarDetails.append('text').attr('class', 'detail').text(`${raceVal} at or below poverty`);
+	
+	//hide the default promt
+	polarAreaPrompt.style('display', 'none');
+}
+
+function resetAreaPrompt(d){
+	let polarAreaPrompt= d3.select('#polarAreaPrompt');
+	let polarDetails = d3.select('#polarDetails');
+	polarAreaPrompt.style('display', 'block');
+	polarDetails.style('display', 'none');
+}
+
 let dataObject = [
   {
     "race": "White & Hispanic",
@@ -113,7 +146,7 @@ function buildPolarAreaChart(obj){
 	let largestRadius = getLargestRadius(thisDivWidthLessMargins, thisDivHeightLessMargins, 700);
 
 	polarPieG.attrs({
-			"transform": `translate(${Math.floor(thisDivWidthLessMargins / 1.75)},${Math.floor(thisDivHeightLessMargins / 2)})`,
+			"transform": `translate(${Math.floor(thisDivWidthLessMargins / 1.75)},${Math.floor(thisDivHeightLessMargins / 1.5)})`,
 			'class':'PolarAreaGWrapper'
 		})
 		.style('max-height','900px');
@@ -129,10 +162,6 @@ function buildPolarAreaChart(obj){
 	
 	d3PieFunc.value(1);
 	const arcs = d3PieFunc(jsonData);
-	
-	// d3ArcFn.innerRadius(0).outerRadius((d) => { 
-	// 	return radiusScale(d.data[radiusColumn]);
-	// });
 
 	var slices = polarPieG.selectAll("path")
 		.remove()
@@ -141,10 +170,23 @@ function buildPolarAreaChart(obj){
 
 	slices.enter()
 		.append("path")
-		.attrs({
+	    .attrs({
 			"d": d3ArcFn,
-			"fill": (d) => colorScale(thisColorVal(d.data))
+			"fill": (d) => colorScale(thisColorVal(d.data)),
+			"class": 'areaWedge'
 		})
+		.on('mouseover', updatePolarAreaDetails )
+		.on('mouseout', resetAreaPrompt);
+			
+			//3 include a 'mouseout'... ?!
+
+			//4 move the fn FROM polarDetails TO polarAreaPrompt
+			// 	THIS includes removing the default text or something
+		
+	  
+	  // slices.on('mouseout', function() {                              // NEW
+	  //   tooltip.style('display', 'none');                           // NEW
+	  // });                                                           // NEW
 }
 
 //2. Build fn
@@ -165,7 +207,7 @@ function resizePolarArea(){
 	setPolarAreaSVGDims(polarSVGObj, cssDivWidth, thisDivHeightLessMargins);
 	const { d3PieFunc, d3ArcFn } = makePolarAreaFuncs(radiusColumn, thisDivWidthLessMargins)
 
-    polarPieG.attr('transform', `translate(${Math.floor(thisDivWidthLessMargins/ 1.75)}, ${Math.floor(thisDivHeightLessMargins/2) })`);
+    polarPieG.attr('transform', `translate(${Math.floor(thisDivWidthLessMargins/ 1.75)}, ${Math.floor(thisDivHeightLessMargins/ 1.5) })`);
     polarPieG.selectAll('path').attr('d', d3ArcFn)
 
 }
