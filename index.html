@@ -52,8 +52,8 @@
        
         <div class="meaningText">          
           <h3>The Range of Poverty</h3>
-          <p>The town with the <span class="incomeRange">least</span> people below the poverty line is North Shoreham, with <span class="incomeRange">71</span> people. <br>
-          The town with the <span class="incomeRange">most</span> people spanelow the poverty line is Providence, with <span class="incomeRange">46,678</span> people.</p>
+          <p>The town with the <span class="bigPText">least</span> people below the poverty line is North Shoreham, with <span class="bigPText">71</span> people. <br>
+          The town with the <span class="bigPText">most</span> people spanelow the poverty line is Providence, with <span class="bigPText">46,678</span> people.</p>
           <div id="rangeBar"></div>
         </div>
 
@@ -98,9 +98,18 @@
 
           <div class="meaningText">          
             <h3>Poverty by Race</h3>
-            <p>Another perspective on poverty in Rhode Island is by comparing the population of at-or-below poverty by race (race, of course, taken from census options). Here is a 'polar area' diagram comparing poverty by race. Here, the value is measure by each slices length, rather than the traditional wedge-width. I've found this to be an interesting visualisation...</p>
-            <i class="smallItalics">*Hawaiian Islanders also had a count of 19 belowPoverty. This has been removed from this chart.</i>
-            <div id="polarArea"></div>
+            <p>Another perspective on poverty in Rhode Island is by comparing the population of at-or-below poverty by race (race, of course, taken from census options). Here is a 'polar area' diagram comparing poverty by race. <br>
+            Here, the value is displayed by using the length of each wedge, rather than the traditional pie chart wedge-width. I've found this to be an interesting approach for visualizing poverty broken-down by race.</p>
+            <i class="smallItalics">*Hawaiian Islanders also have a count of 19 belowPoverty in this dataset. This Hawaiian Islanders have been removed fromt this polar area diagram.</i>
+            <div class="resizingHalfWrapper">
+              <div id="polarArea"></div>
+            </div>
+            <div class="resizingHalfWrapper">
+              <p id="polarAreaPrompt">
+                <span class="bigPText">Select a wedge</span> to see <span class="bigPText">details</span>.
+              </p>
+              <p id="polarDetails"></p>
+            </div>
         </div>
 
         </div>
@@ -122,7 +131,7 @@
 
     </footer>
 
-    <script src="index.js" defer></script>
+    <script src="index.js"></script>
     <script src="pie.js" defer></script>    
     <script src="polarArea.js" defer></script>    
 
