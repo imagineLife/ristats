@@ -230,6 +230,7 @@ footer p{
   font-size: .5em;
   display: inline-block;
   margin: 0;
+  line-height:1.4;
 }
 
 .boldP{
