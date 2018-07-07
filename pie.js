@@ -8,7 +8,7 @@ function addDivToObj(p,friendly, uniqueID){
 function makeD3ElementsFromParentDiv(parDivID, pieNumber){
 	const piesWrapperDiv = document.getElementById(parDivID);
 	let chartTextWrapper = d3.select(piesWrapperDiv).append('div').attrs({
-		'class': 'chartAndText',
+		'class': 'resizingHalfWrapper',
 		'id': 'chartAndText'+pieNumber
 	})
 
@@ -151,7 +151,7 @@ function buildChart(obj, data, pieNumber){
 	const colorScale  = makeThisColorScale(d3.interpolateBlues, [2.3, 32.7] );
 
 	//build the pie chart!
-	buildPieChart(d3PieFunc, jsonData, pieG, arcFunc, colorScale, obj.colorValue, tweenPie);
+	setTimeout( () => buildPieChart(d3PieFunc, jsonData, pieG, arcFunc, colorScale, obj.colorValue, tweenPie), 1500);
 }
 
 //2. Build fn
@@ -204,7 +204,7 @@ originalDataObj.forEach((d, i) => {
 	    percentBelow: d.percentBelow,
 	    chartNo: i + 1      
 	  }];
-	  setTimeout(() => buildChart(chartVars, thisObj, i), 10)
+	  setTimeout(() => buildChart(chartVars, thisObj, i), 500)
 	}
 })
 
