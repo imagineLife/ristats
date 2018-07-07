@@ -222,6 +222,15 @@ footer p{
   margin-top: 10%;
 }
 
+#polarArea{
+  height: 600px;
+}
+
+.smallItalics{
+  font-size: .5em;
+  margin: 0;
+}
+
 @media only screen and (min-width: 400px){
   .wordsWrapper{
     margin-top: 7%;
