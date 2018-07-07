@@ -42,6 +42,9 @@ function setPolarAreaSVGDims(obj, w, h){
 function getLargestRadius(w,h, largestVal){
 	let smallerHorW = (w < h) ? w : h;
 	let largestRadiusCalculation = Math.floor( ( smallerHorW / 2) );
+	if(largestRadiusCalculation < 175) largestRadiusCalculation = 165;
+	console.log('largestRadiusCalculation')
+	console.log(largestRadiusCalculation)
 	return (largestRadiusCalculation < largestVal)? largestRadiusCalculation : largestVal; 
 }
 
@@ -117,7 +120,7 @@ function buildPolarAreaChart(obj){
 		.style('max-height','900px');
 
 	//set svg height & width from div computed dimensions
-	setPolarAreaSVGDims(polarSVGObj, thisDivWidthLessMargins, thisDivHeightLessMargins);
+	setPolarAreaSVGDims(polarSVGObj, cssDivWidth, thisDivHeightLessMargins);
 
 	colorScale.domain(jsonData.map(thisColorVal));
 	
