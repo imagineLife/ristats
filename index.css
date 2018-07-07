@@ -255,6 +255,10 @@ footer p{
 
 @media only screen and (min-width : 768px){
 
+  #polarAreaPrompt{
+    text-align: center;
+  }
+
   .resizingHalfWrapper{
     width: 49%;
     display: inline-block;
