@@ -43,8 +43,7 @@ function getLargestRadius(w,h, largestVal){
 	let smallerHorW = (w < h) ? w : h;
 	let largestRadiusCalculation = Math.floor( ( smallerHorW / 2) );
 	if(largestRadiusCalculation < 175) largestRadiusCalculation = 165;
-	console.log('largestRadiusCalculation')
-	console.log(largestRadiusCalculation)
+
 	return (largestRadiusCalculation < largestVal)? largestRadiusCalculation : largestVal; 
 }
 
@@ -163,7 +162,7 @@ function resizePolarArea(){
 		polarPieG = d3.select('.PolarAreaGWrapper');
 
 	//set svg dimension based on resizing attrs
-	setPolarAreaSVGDims(polarSVGObj, thisDivWidthLessMargins, thisDivHeightLessMargins);
+	setPolarAreaSVGDims(polarSVGObj, cssDivWidth, thisDivHeightLessMargins);
 	const { d3PieFunc, d3ArcFn } = makePolarAreaFuncs(radiusColumn, thisDivWidthLessMargins)
 
     polarPieG.attr('transform', `translate(${Math.floor(thisDivWidthLessMargins/ 1.75)}, ${Math.floor(thisDivHeightLessMargins/2) })`);
