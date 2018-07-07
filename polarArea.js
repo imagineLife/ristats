@@ -82,7 +82,7 @@ function resetAreaPrompt(d){
 
 let dataObject = [
   {
-    "race": "White & Hispanic",
+    "race": "Mixed White & Hispanic",
     "howMany": 92245
   },
   {
@@ -102,11 +102,11 @@ let dataObject = [
     "howMany": 18152
   },
   {
-    "race": "Two-Plus Races",
+    "race": "Non-categorize Two-Plus Races",
     "howMany": 6939
   },
   {
-    "race": "Hispanic & Latino",
+    "race": "Mixed Hispanic & Latino",
     "howMany": 44864
   },
   {
