@@ -207,8 +207,3 @@ originalDataObj.forEach((d, i) => {
 	  setTimeout(() => buildChart(chartVars, thisObj, i), 500)
 	}
 })
-
-
-
-d3.select(window)
-      .on("resize", serializer( resizeCharts, selectAndUpdatePies ));
