@@ -213,4 +213,3 @@ function resizePolarArea(){
 }
 
 setTimeout(() => buildPolarAreaChart(thisChartObj), 100);
-d3.select(window).on("resize", serializer( resizeCharts, selectAndUpdatePies, resizePolarArea ));

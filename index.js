@@ -525,7 +525,8 @@ function resizeCharts() {
     updateXAxis(top5xAxisG, widthLessMargins, d3Top5XAxis);
 
     //update ticks
-    d3.selectAll('.tick line').attr('x2', resizedWidthLessMargins);
+    d3.selectAll('.gWrapper .tick line').attr('x2', resizedWidthLessMargins);
+    d3.selectAll('.top5gWrapper .tick line').attr('x2', resizedWidthLessMargins);
     d3.selectAll('.totalLegendAxis .tick line').attr('x2', 0);
     d3.selectAll('.PercentLegendAxis .tick line').attr('x2', 0);
     d3yAxis.ticks(Math.max(resizedHeightLessMargins/80, 2))
