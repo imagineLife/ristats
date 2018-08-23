@@ -47,6 +47,13 @@ h3{
   margin-top: 10px;
 }
 
+h2{
+  display: inline-block;
+  font-size:1em;
+  border-bottom: 6px solid #2ecc71;
+  margin-top: 10px;
+}
+
 .bigPText{
   font-size: 1.5em;
 }
@@ -239,6 +246,28 @@ footer p{
 
 .detail{
   display:block;
+}
+
+#adjustaBar {
+    position: /*absolute*/;
+    min-height: 600px;
+}
+
+.townButton{
+  position: relative;
+  display: inline-block;
+  margin-bottom: 50px;
+  width: 18%;
+  margin: 0 1%;
+  cursor: pointer;
+  height: 45px;
+  background-color: rgb(55,55,55);
+
+}
+
+.townButton:hover, .townButton:active, .townButton:focus{
+  background-color: darkkhaki;
+  color: rgb(25,25,25); 
 }
 
 @media only screen and (min-width: 400px){
