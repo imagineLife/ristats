@@ -83,7 +83,7 @@ var xAxis = d3.axisBottom(adjustaXScale).tickSize(10);
 var yAxis = d3.axisLeft(adjustaYScale).tickFormat(d => `${d}%`).ticks(Math.max(hLessM/80, 2));
 let dataSourceData;
 
-d3.json("./top5EUE.json", (data) => {
+d3.json("topeue.json", data => {
 
     dataSourceData = data;
     // Clean data
