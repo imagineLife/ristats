@@ -57,7 +57,7 @@ var adjustaGWrapper =adjustaSVG.append("g")
 
 // Extract the width and height that was computed by CSS.
       let adjustaResizedWidth = adjustaBarDiv.clientWidth;
-      let adjustaResizedHeight = adjustaBarDiv.clientHeight - 50; //-50 for buttons!!
+      let adjustaResizedHeight = 600; //-50 for buttons!!
       let wLessM = adjustaResizedWidth - v.margins.left - v.margins.right;
       let hLessM = adjustaResizedHeight - v.margins.top - v.margins.bottom;
 
@@ -66,8 +66,8 @@ var adjustaGWrapper =adjustaSVG.append("g")
         "height": adjustaResizedHeight,
       })
 
-var xAxisGroup = makeAxisGroup(adjustaGWrapper, 'x axis', `translate(0, ${hLessM})` )
-var yAxisGroup = makeAxisGroup(adjustaGWrapper, 'y axis', `translate(0, 0)` )
+var xAxisGroup = makeAxisGroup(adjustaGWrapper, 'AdjustaXaxis', `translate(0, ${hLessM})` )
+var yAxisGroup = makeAxisGroup(adjustaGWrapper, 'AdjustaYaxis', '')
 
 //make axis labels
 let yLabel = makeAxisLabel(adjustaGWrapper, -(hLessM / 2), (-60), "rotate(-90)", '', 'YAxisLabel')
@@ -221,12 +221,16 @@ function setXYTrans(obj, xPos, yPos, trans){
 function resizeAdjustaBar(){
     // Extract the width and height that was computed by CSS.
       let resizedFnWidth = adjustaBarDiv.clientWidth;
+      let testRszH = 600;
 
       // - 50 for buttons, conditional for min-height
-      let resizedFnHeight = ((adjustaBarDiv.clientHeight - 50) > 424) ? adjustaBarDiv.clientHeight - 50 : 425;
+      let resizedFnHeight = testRszH;
       let adjustaResizedWidthLessMargins = resizedFnWidth - v.margins.left - v.margins.right;
       let adjustaResizedHeightLessMargins = resizedFnHeight - v.margins.top - v.margins.bottom;
       
+    console.log('testRszH')
+      console.log(testRszH)
+
       let xAxisLabel = d3.select('.XAxisLabel')
       let yAxisLabel = d3.select('.YAxisLabel')
       
@@ -247,7 +251,7 @@ function resizeAdjustaBar(){
         .call(wrap, adjustaXScale.bandwidth());
     
     setXYTrans(xAxisLabel, (adjustaResizedWidthLessMargins / 2), (resizedFnHeight - 100), '');
-    setXYTrans(yAxisGroup, (-adjustaResizedHeightLessMargins / 2), (-v.margins.left / 2));
+    setXYTrans(yAxisGroup, (-adjustaResizedHeightLessMargins / 2), (-v.margins.left / 2), '');
     yAxisGroup.call(yAxis);
 
     setXYTrans(yAxisLabel, (-adjustaResizedHeightLessMargins / 2), (-60),'rotate(-90)');
