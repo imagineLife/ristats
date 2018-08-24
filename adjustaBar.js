@@ -3,7 +3,7 @@ const v = {
         left:80,
         right:20,
         top:10,
-        bottom:200
+        bottom:125
     },
     flag : true
 }
@@ -58,6 +58,7 @@ var adjustaGWrapper =adjustaSVG.append("g")
 // Extract the width and height that was computed by CSS.
       let adjustaResizedWidth = adjustaBarDiv.clientWidth;
       let adjustaResizedHeight = 600; //-50 for buttons!!
+      // let adjustaResizedHeight = adjustaBarDiv.clientHeight; //-50 for buttons!!
       let wLessM = adjustaResizedWidth - v.margins.left - v.margins.right;
       let hLessM = adjustaResizedHeight - v.margins.top - v.margins.bottom;
 
@@ -71,7 +72,7 @@ var yAxisGroup = makeAxisGroup(adjustaGWrapper, 'AdjustaYaxis', '')
 
 //make axis labels
 let yLabel = makeAxisLabel(adjustaGWrapper, -(hLessM / 2), (-60), "rotate(-90)", '', 'YAxisLabel')
-let xLabel = makeAxisLabel(adjustaGWrapper, (wLessM / 2), (adjustaResizedHeight - 100), "", '', 'XAxisLabel')
+let xLabel = makeAxisLabel(adjustaGWrapper, (wLessM / 2), (adjustaResizedHeight - 35), "", '', 'XAxisLabel')
 
 // Scales Scale
 var adjustaXScale = d3.scaleBand().range([0, wLessM]).padding(0.1);
@@ -221,15 +222,14 @@ function setXYTrans(obj, xPos, yPos, trans){
 function resizeAdjustaBar(){
     // Extract the width and height that was computed by CSS.
       let resizedFnWidth = adjustaBarDiv.clientWidth;
+      // let testRszH = adjustaBarDiv.clientHeight - 50;
       let testRszH = 600;
 
       // - 50 for buttons, conditional for min-height
+      // let resizedFnHeight = (testRszH > 424) ? adjustaBarDiv.clientHeight - 50 : 425;
       let resizedFnHeight = testRszH;
       let adjustaResizedWidthLessMargins = resizedFnWidth - v.margins.left - v.margins.right;
       let adjustaResizedHeightLessMargins = resizedFnHeight - v.margins.top - v.margins.bottom;
-      
-    console.log('testRszH')
-      console.log(testRszH)
 
       let xAxisLabel = d3.select('.XAxisLabel')
       let yAxisLabel = d3.select('.YAxisLabel')
@@ -250,7 +250,7 @@ function resizeAdjustaBar(){
         .selectAll(".tick text")
         .call(wrap, adjustaXScale.bandwidth());
     
-    setXYTrans(xAxisLabel, (adjustaResizedWidthLessMargins / 2), (resizedFnHeight - 100), '');
+    setXYTrans(xAxisLabel, (adjustaResizedWidthLessMargins / 2), (resizedFnHeight - 35), '');
     setXYTrans(yAxisGroup, (-adjustaResizedHeightLessMargins / 2), (-v.margins.left / 2), '');
     yAxisGroup.call(yAxis);
 

@@ -255,6 +255,14 @@ footer p{
     /*max-height: 700px;*/
 }
 
+.AdjustaXTickLabel{
+  display: none;
+}
+
+.AdjustaXaxis .tick line{
+  visibility: hidden;
+}
+
 .townButton{
   position: relative;
   display: inline-block;
@@ -277,15 +285,25 @@ footer p{
     margin-top: 7%;
   }
 
-  .townButton{
-    width: 18%;
-  }
 }
 
 @media only screen and (min-width: 600px) {
   .top5barText, .totalBarText {
     visibility: unset;
   }
+
+  .AdjustaXTickLabel{
+    display: inline-block;
+  }
+
+  .AdjustaXaxis .tick line{
+    visibility: unset;
+  }
+
+  .townButton{
+    width: 31%;
+  }
+
 }
 
 @media only screen and (min-width : 768px){
@@ -313,6 +331,10 @@ footer p{
 
   .maxWrapper{
     float: right;
+  }
+
+  .townButton{
+    width: 18%;
   }
 
 }
