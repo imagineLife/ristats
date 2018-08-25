@@ -46,6 +46,16 @@ function makeAxisLabel(parent, x, y, transformation, textVal, cl){
     .text(textVal);
 }
 
+function showToolTip(d){
+    return tooltipDiv
+        .style("left", (d3.event.pageX - 150 > 0 ) ? d3.event.pageX - 150 +  "px" : 0 + 'px')
+        .style("top", d3.event.pageY - 150 + "px")
+        .style("display", "inline-block")
+        .html(`<b>${d.race}</b>: <br>
+        ${d.val}%`);
+}
+
+let tooltipDiv = d3.select('.toolTip')
 let adjustaBarDiv = document.getElementById("adjustaBar");
 var adjustaSVG = d3.select(adjustaBarDiv)
     .append("svg")
@@ -57,7 +67,7 @@ var adjustaGWrapper =adjustaSVG.append("g")
 
 // Extract the width and height that was computed by CSS.
       let adjustaResizedWidth = adjustaBarDiv.clientWidth;
-      let adjustaResizedHeight = 600; //-50 for buttons!!
+      let adjustaResizedHeight = 500; //-50 for buttons!!
       // let adjustaResizedHeight = adjustaBarDiv.clientHeight; //-50 for buttons!!
       let wLessM = adjustaResizedWidth - v.margins.left - v.margins.right;
       let hLessM = adjustaResizedHeight - v.margins.top - v.margins.bottom;
@@ -190,7 +200,9 @@ function updateAdjustaBar(data, townName) {
             'class': 'singleRect',
             'id': (d) => d.race
         })
-        .transition().duration(700) 
+        .on("mousemove", d => showToolTip(d) )
+        .on("mouseout", d => tooltipDiv.style("display", "none") )
+        .transition().duration(700)
 
 
         // MERGE AND updateAdjustaBar NEW data with 
@@ -205,6 +217,7 @@ function updateAdjustaBar(data, townName) {
                 'class': 'singleRect',
                 'id': (d) => d.race
             })
+
     
     yLabel.text('Percent At Or Below Poverty');
     xLabel.text(townName);
@@ -223,7 +236,7 @@ function resizeAdjustaBar(){
     // Extract the width and height that was computed by CSS.
       let resizedFnWidth = adjustaBarDiv.clientWidth;
       // let testRszH = adjustaBarDiv.clientHeight - 50;
-      let testRszH = 600;
+      let testRszH = 500;
 
       // - 50 for buttons, conditional for min-height
       // let resizedFnHeight = (testRszH > 424) ? adjustaBarDiv.clientHeight - 50 : 425;
