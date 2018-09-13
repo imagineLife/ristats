@@ -48,7 +48,7 @@ function makeAxisLabel(parent, x, y, transformation, textVal, cl){
 
 function showToolTip(d){
     return tooltipDiv
-        .style("left", (d3.event.pageX - 150 > 0 ) ? d3.event.pageX - 150 +  "px" : 0 + 'px')
+        .style("left", (d3.event.pageX - 150 > 0 ) ? d3.event.pageX - 75 +  "px" : 0 + 'px')
         .style("top", d3.event.pageY - 150 + "px")
         .style("display", "inline-block")
         .html(`<b>${d.race}</b>: <br>
@@ -67,7 +67,7 @@ var adjustaGWrapper =adjustaSVG.append("g")
 
 // Extract the width and height that was computed by CSS.
       let adjustaResizedWidth = adjustaBarDiv.clientWidth;
-      let adjustaResizedHeight = 500; //-50 for buttons!!
+      let adjustaResizedHeight = 450; //-50 for buttons!!
       // let adjustaResizedHeight = adjustaBarDiv.clientHeight; //-50 for buttons!!
       let wLessM = adjustaResizedWidth - v.margins.left - v.margins.right;
       let hLessM = adjustaResizedHeight - v.margins.top - v.margins.bottom;
@@ -236,7 +236,7 @@ function resizeAdjustaBar(){
     // Extract the width and height that was computed by CSS.
       let resizedFnWidth = adjustaBarDiv.clientWidth;
       // let testRszH = adjustaBarDiv.clientHeight - 50;
-      let testRszH = 500;
+      let testRszH = 450;
 
       // - 50 for buttons, conditional for min-height
       // let resizedFnHeight = (testRszH > 424) ? adjustaBarDiv.clientHeight - 50 : 425;
