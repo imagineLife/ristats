@@ -1,5 +1,6 @@
 # Rhode Island Income & Poverty Statistics
-##[View The Live Site Here!](https://imaginelife.github.io/ristats/)
+
+[View The Live Site Here!](https://imaginelife.github.io/ristats/)
 
 ## D3
 here's a few of the D3 features used in this project:
