@@ -5,7 +5,7 @@ function addDivToObj(p,friendly, uniqueID){
 	})
 }
 
-function makeD3ElementsFromParentDiv(parDivID, pieNumber){
+function makePieElements(parDivID, pieNumber){
 	const piesWrapperDiv = document.getElementById(parDivID);
 	let chartTextWrapper = d3.select(piesWrapperDiv).append('div').attrs({
 		'class': 'resizingHalfWrapper',
@@ -128,7 +128,7 @@ function buildChart(obj, data, pieNumber){
 	addRemainderSlice(percentVal, jsonData);
 
 	//get page elements into D3
-	let {pieDiv, pieSVG, pieG, pieTitle, pieText} = makeD3ElementsFromParentDiv(obj.parentDivID, pieNumber);
+	let {pieDiv, pieSVG, pieG, pieTitle, pieText} = makePieElements(obj.parentDivID, pieNumber);
 	setPieTexts(pieTitle, pieText, data);
 
 	//parse client dimensions
