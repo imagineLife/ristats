@@ -20,7 +20,12 @@ function makeButtonsFromTownNames(towns){
             "value": d => d,
             display: 'block'
         })
-        .on('click', (d) => updateAdjustaBar(dataSourceData, d))
+        .on('click', (d) => {
+            console.log('clicked d')
+            console.log(d)
+            updateAdjustaBar(dataSourceData, d);
+            resizeAdjusaPie(getPortionOfData(d))
+        })
 
 }
 
@@ -306,4 +311,4 @@ function wrap(text, width) {
   })
 }
 
-d3.select(window).on("resize", serializer( resizeCharts, selectAndUpdatePies, resizePolarArea, resizeAdjustaBar ));
+setTimeout(() => resizeAdjustaBar(), 1000);
