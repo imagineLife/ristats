@@ -1,7 +1,7 @@
 function makeD3ElementsFromParentDiv(parendDivID){
-  const svgObj = d3.select('.adjustaSVGWrapper')
-  const pieGWrapper = svgObj.append('g')
-    .attr('class','pieGWrapper')
+  const svgObj = d3.select(parendDivID)
+  const adjustaPieGWrapper = svgObj.append('g')
+    .attr('class','adjustaPieGWrapper')
     .style('max-height','300px');
 
   const adjustaBarDivWrapper = document.getElementById("adjustaBar");
@@ -9,7 +9,19 @@ function makeD3ElementsFromParentDiv(parendDivID){
   let wrapperWidth = adjustaBarDivWrapper.clientWidth;
   let wrapperHeight = 450; //-50 for buttons!!
 
-  return {svgObj, pieGWrapper, wrapperWidth, wrapperHeight};
+  return {svgObj, adjustaPieGWrapper, wrapperWidth, wrapperHeight};
+}
+
+function selectD3ElementsFromParentClass(parendDivID){
+  const svgObj = d3.select(parendDivID)
+  const adjustaPieGWrapper = d3.select('.adjustaPieGWrapper')
+
+  const adjustaBarDivWrapper = document.getElementById("adjustaBar");
+  // Extract the width and height that was computed by CSS.
+  let wrapperWidth = adjustaBarDivWrapper.clientWidth;
+  let wrapperHeight = 450; //-50 for buttons!!
+
+  return {svgObj, adjustaPieGWrapper, wrapperWidth, wrapperHeight};
 }
 
 function setSVGDims(obj, w, h){
@@ -88,14 +100,25 @@ function clickBtnFn(){
   resizeAdjusaPie(clickedData)
 }
 
+function makeTextString(d){
+  return `${d.data.keyname} ${d.value}`
+}
+
 function resizeAdjusaPie(data) {
-  console.log('resizing adjustaPie data')
-  console.log(data)
+
+    // //4. SELECT d3 elements
+    let {svgObj, adjustaPieGWrapper, wrapperWidth, wrapperHeight} = selectD3ElementsFromParentClass('.adjustaSVGWrapper');
+    console.log('wrapperWidth - 150')
+    console.log(wrapperWidth - 150)
+
+    adjustaPieGWrapper
+      .attr("transform", `translate(${(wrapperWidth - 150)},${50})`)
+
     data = (!data) ? getPortionOfData('Central Falls') : data;
 
     var duration = 1000;
 
-    var oldData = svgObj.select(".pieGWrapper")
+    var oldData = svgObj.select(".adjustaPieGWrapper")
       .selectAll("path")
       .data().map(function(d) { 
         return d.data 
@@ -106,7 +129,7 @@ function resizeAdjusaPie(data) {
     var prevData = mergeWithFirstEqualZero(data, oldData);
     var newDataWithZeros = mergeWithFirstEqualZero(oldData, data);
 
-    let oldSlice = getSlicePaths(svgObj, ".pieGWrapper", pie, prevData, pieSliceKeyName)
+    let oldSlice = getSlicePaths(svgObj, ".adjustaPieGWrapper", pie, prevData, pieSliceKeyName)
 
     oldSlice.enter()
       .append("path")
@@ -125,10 +148,11 @@ function resizeAdjusaPie(data) {
       'x': (d,i) => placeLabels(d,i)
     })
     .style('fill', 'white')
-    .text(d => d.data.keyname)
+    .text(d => makeTextString(d))
+    oldSlice.selectAll(".sliceLabel").call(wrap, '50');
     
 
-    let newSlicesWithZeros = getSlicePaths(svgObj, ".pieGWrapper", pie, newDataWithZeros, pieSliceKeyName)
+    let newSlicesWithZeros = getSlicePaths(svgObj, ".adjustaPieGWrapper", pie, newDataWithZeros, pieSliceKeyName)
 
     newSlicesWithZeros.transition()
       .duration(duration)
@@ -141,7 +165,7 @@ function resizeAdjusaPie(data) {
             };
         });
 
-    let newSlicesNoZeros = getSlicePaths(svgObj, ".pieGWrapper", pie,data, pieSliceKeyName)
+    let newSlicesNoZeros = getSlicePaths(svgObj, ".adjustaPieGWrapper", pie,data, pieSliceKeyName)
 
     newSlicesNoZeros.exit()
       .transition()
@@ -154,6 +178,8 @@ function placeLabels(data,ind){
   if(ind === 1) return -100
   if(ind === 0) return 50
 }
+
+
 
 //1. Data array
 var myData = [
@@ -229,6 +255,8 @@ var myData = [
   }
 ]
 
+//4. SELECT d3 elements
+let {svgObj, adjustaPieGWrapper, wrapperWidth, wrapperHeight} = makeD3ElementsFromParentDiv('.adjustaSVGWrapper');
 
 //2. array of keys used in colorScale domain
 //CAN/SHOULD be re-done
@@ -238,13 +266,6 @@ var keys = ["Men", "Women"];
 var width = 100,
   height = 100,
   radius = Math.min(width, height) / 2;
-
-//4. make d3 elements
-let {svgObj, pieGWrapper, wrapperWidth, wrapperHeight} = makeD3ElementsFromParentDiv('adjustaBar');
-
-pieGWrapper
-  .attr("transform", `translate(${(wrapperWidth - 150)},${50})`)
-  .attr("class", "pieGWrapper");
 
 //6. make pie fn
 var pie = d3.pie()
