@@ -121,8 +121,6 @@ function arcTween(a) {
 
 function resizeAdjusaPie(data) {
 
-    d3.selectAll('.sliceLabel').exit().remove()
-
     // //4. SELECT d3 elements
     let {svgObj, adjustaPieGWrapper, wrapperWidth, wrapperHeight} = selectD3ElementsFromParentClass('.adjustaSVGWrapper');
 
@@ -133,13 +131,22 @@ function resizeAdjusaPie(data) {
 
     var duration = 1000;
 
+  //pie slice & label group wrappers
+  const groupDataJoin = adjustaPieGWrapper.selectAll('g')
+    .data(pie(data), (d) => d.data.keyname)
+    .attr('class', 'groupDataJoin');
+
+  const groupEnterDataJoin = groupDataJoin.enter().append('g');
+    groupEnterDataJoin.merge(groupDataJoin)
+
+  groupDataJoin.exit().remove();
+
+
     // join
-    var singleSliceDataJoin = adjustaPieGWrapper.selectAll(".singleSlice")
-        .data(pie(data), pieSliceKeyName);
+    var singleSliceDataJoin = groupDataJoin.select("path")
 
     // enter
-    singleSliceDataJoin.enter()
-      .append("path")
+    groupEnterDataJoin.append("path")
       .attrs({
         "class": "singleSlice",
         "fill": (d, i) => colorScale(i)
