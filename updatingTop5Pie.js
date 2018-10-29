@@ -65,19 +65,21 @@ function mergeWithFirstEqualZero(first, second){
 
 function getPortionOfData(selectorVal) {
   let thisTownData = myData.filter(town => town.geo === selectorVal)
-  // let justMenAndWomen = (
-  // ({ BPMen, BPWomen }) => ({ BPMen, BPWomen }))(thisTownData[0]);
   let menVal = thisTownData[0]['BPMen'];
   let womenVal = thisTownData[0]['BPWomen']
+  let totalVal = menVal + womenVal;
+  console.log(`Men: ${parseInt(menVal / totalVal * 100)}, Wm: ${parseInt(womenVal / totalVal * 100)}`)
 
   let justMenAndWomen = [
     {
       keyname: 'Men',
-      popval: thisTownData[0]['BPMen']
+      popval: menVal,
+      percent: parseInt(menVal / totalVal * 100)
     },
     {
       keyname: 'Women',
-      popval: thisTownData[0]['BPWomen']
+      popval: womenVal,
+      percent: parseInt(womenVal / totalVal * 100)
     }
   ];
 
@@ -101,15 +103,28 @@ function clickBtnFn(){
 }
 
 function makeTextString(d){
-  return `${d.data.keyname} ${d.value}`
+  // console.log('makeTxt d')
+  // console.log(d)
+  return `${d.data.percent}% ${d.data.keyname}`
+}
+
+// Store the displayed angles in _current.
+// Then, interpolate from _current to the new angles.
+// During the transition, _current is updated in-place by d3.interpolate.
+function arcTween(a) {
+  var i = d3.interpolate(this._current, a);
+  this._current = i(0);
+  return function(t) {
+    return arc(i(t));
+  };
 }
 
 function resizeAdjusaPie(data) {
 
+    d3.selectAll('.sliceLabel').exit().remove()
+
     // //4. SELECT d3 elements
     let {svgObj, adjustaPieGWrapper, wrapperWidth, wrapperHeight} = selectD3ElementsFromParentClass('.adjustaSVGWrapper');
-    console.log('wrapperWidth - 150')
-    console.log(wrapperWidth - 150)
 
     adjustaPieGWrapper
       .attr("transform", `translate(${(wrapperWidth - 150)},${50})`)
@@ -118,64 +133,25 @@ function resizeAdjusaPie(data) {
 
     var duration = 1000;
 
-    var oldData = svgObj.select(".adjustaPieGWrapper")
-      .selectAll("path")
-      .data().map(function(d) { 
-        return d.data 
-      });
+    // join
+    var singleSliceDataJoin = adjustaPieGWrapper.selectAll(".singleSlice")
+        .data(pie(data), pieSliceKeyName);
 
-    if (oldData.length == 0) oldData = data;
-
-    var prevData = mergeWithFirstEqualZero(data, oldData);
-    var newDataWithZeros = mergeWithFirstEqualZero(oldData, data);
-
-    let oldSlice = getSlicePaths(svgObj, ".adjustaPieGWrapper", pie, prevData, pieSliceKeyName)
-
-    oldSlice.enter()
+    // enter
+    singleSliceDataJoin.enter()
       .append("path")
-      .attr("class", "singleSlice")
-      .style("fill", d => {
-        return colorScale(d.data.keyname)
+      .attrs({
+        "class": "singleSlice",
+        "fill": (d, i) => colorScale(i)
       })
-      .each(function(d) {
-          this._current = d;
-        });
+      .merge(singleSliceDataJoin)
+      .transition().duration(duration)
+      .attrTween("d", arcTween)
 
-    oldSlice.enter()
-    .append('text')
-    .attrs({
-      'class': 'sliceLabel',
-      'x': (d,i) => placeLabels(d,i)
-    })
-    .style('fill', 'white')
-    .text(d => makeTextString(d))
-    oldSlice.selectAll(".sliceLabel").call(wrap, '50');
-    
-
-    let newSlicesWithZeros = getSlicePaths(svgObj, ".adjustaPieGWrapper", pie, newDataWithZeros, pieSliceKeyName)
-
-    newSlicesWithZeros.transition()
-      .duration(duration)
-      .attrTween("d", function(d) {
-          var interpolate = d3.interpolate(this._current, d);
-          var curSlice = this;
-          return function(t) {
-              curSlice._current = interpolate(t);
-              return arc(curSlice._current);
-            };
-        });
-
-    let newSlicesNoZeros = getSlicePaths(svgObj, ".adjustaPieGWrapper", pie,data, pieSliceKeyName)
-
-    newSlicesNoZeros.exit()
-      .transition()
-      .delay(duration)
-      .duration(0)
-      .remove();
 };
 
 function placeLabels(data,ind){
-  if(ind === 1) return -100
+  if(ind === 1) return -150
   if(ind === 0) return 50
 }
 
