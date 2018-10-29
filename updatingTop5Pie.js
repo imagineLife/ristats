@@ -119,6 +119,9 @@ function arcTween(a) {
   };
 }
 
+function turnPopToPercentText(num, tot){ return `${Math.round((num/tot) * 100)}%`}
+
+
 function resizeAdjusaPie(data) {
 
     // //4. SELECT d3 elements
@@ -128,6 +131,11 @@ function resizeAdjusaPie(data) {
       .attr("transform", `translate(${(wrapperWidth - 150)},${50})`)
 
     data = (!data) ? getPortionOfData('Central Falls') : data;
+
+    let totalPop;
+    data.forEach(d => {
+      totalPop = (totalPop || 0) +d.popval 
+    })
 
     var duration = 1000;
 
@@ -154,6 +162,27 @@ function resizeAdjusaPie(data) {
       .merge(singleSliceDataJoin)
       .transition().duration(duration)
       .attrTween("d", arcTween)
+
+  //LABELS
+  let textY = 0;
+
+  const textDataJoin = groupDataJoin.select('text')
+  
+  groupEnterDataJoin.append('text')
+    .attrs({
+      'x' : (d, i) => (-i * 200) + 75,
+      'y' : textY,
+      'class': 'boldTextLabel'
+    })
+    .merge(textDataJoin)
+    .text(d => d.data.keyname)
+    .append('tspan')
+    .attrs({
+      'class': 'labelVal',
+      'x' : (d, i) => (-i * 200) + 75,
+      'y' : textY + 20
+    })
+    .text(d => turnPopToPercentText(d.data.popval, totalPop))
 
 };
 
